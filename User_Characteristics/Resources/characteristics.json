@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Birth Date",
+    "type": "date"
+  },
+  {
+    "name": "Eye Test Score",
+    "type": "number"
+  },
+  {
+    "name": "Driver's License Expiration",
+    "type": "date"
+  }
+]

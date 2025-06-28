@@ -1,0 +1,35 @@
+# Xcode
+build/
+DerivedData/
+*.xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.xcscmblueprint
+
+# Ignore user-specific data (including schemes)
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Keep shared schemes
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/xcshareddata/
+
+# Swift Package Manager
+.build/
+Packages/
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Others
+*.swp
+.DS_Store
