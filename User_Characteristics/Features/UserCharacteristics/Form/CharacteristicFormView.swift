@@ -19,9 +19,10 @@ struct CharacteristicFormView: View {
     @FocusState private var isValueFocused: Bool
 
     var body: some View {
-        NavigationStack {
+        NavigationStack { // todo is this best practice to use this?
             Form {
-                TextField("Name", text: $viewModel.name)
+                Text(viewModel.name)
+                    .listRowBackground(Color("rowBackgroundColor"))
 
                 if viewModel.type == .date {
                     if let _ = viewModel.dateValue {
@@ -34,6 +35,7 @@ struct CharacteristicFormView: View {
                             in: DateRange.plusMinus125Years,
                             displayedComponents: .date)
                         .datePickerStyle(.compact)
+                        .listRowBackground(Color("rowBackgroundColor"))
                     } else {
                         Button {
                             showDatePickerSheet = true
@@ -46,6 +48,7 @@ struct CharacteristicFormView: View {
                                     .foregroundColor(.blue)
                             }
                         }
+                        .listRowBackground(Color("rowBackgroundColor"))
                     }
                 } else {
                     ZStack(alignment: .trailing) {
@@ -65,11 +68,14 @@ struct CharacteristicFormView: View {
                             }
                         }
                     }
+                    .listRowBackground(Color("rowBackgroundColor"))
                 }
                 if let error = viewModel.validationError {
                     Text(error).foregroundColor(.red)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background(Color("customBackgroundColor"))
             .navigationTitle(model == nil ? "Add Characteristic" : "Edit Characteristic")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -85,17 +91,7 @@ struct CharacteristicFormView: View {
             }
         }
         .sheet(isPresented: $showDatePickerSheet) {
-            DatePicker(
-                "Select Date",
-                selection: Binding(
-                    get: { viewModel.dateValue ?? Date() },
-                    set: { viewModel.dateValue = $0 }
-                ),
-                in: DateRange.plusMinus125Years,
-                displayedComponents: .date
-            )
-            .datePickerStyle(.graphical)
-            .presentationDetents([.medium])
+            datePickerSheet(viewModel: viewModel)
         }
         .alert("Set Reminder?", isPresented: $showReminderPrompt) {
             Button("Yes") {

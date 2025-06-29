@@ -19,19 +19,14 @@ struct CharacteristicListView: View {
             List {
                 ForEach(viewModel.items) { item in
                     NavigationLink(destination: CharacteristicFormView(model: item)) {
-                        VStack(alignment: .leading) {
-                            Text(item.name).font(.headline)
-                            if let value = item.value, !value.isEmpty {
-                                Text(displayValue(for: item)).font(.subheadline)
-                            }
-                        }
+                        CharacteristicRow(item: item)
                     }
                 }
+                .listRowBackground(Color("rowBackgroundColor"))
             }
+            .scrollContentBackground(.hidden)
+            .background(Color("customBackgroundColor"))
             .navigationTitle("Characteristics")
-            .sheet(item: $selectedItem) { item in
-                CharacteristicFormView(model: item)
-            }
             .onAppear {
                 viewModel.setContextIfNeeded(context)
                 CharacteristicSeedService.preloadIfNeeded(context: context) {
@@ -57,5 +52,11 @@ struct CharacteristicListView: View {
             return value
         }
     }
+}
 
+// MARK: Preview
+
+#Preview {
+    CharacteristicListView()
+        .modelContainer(CharacteristicListPreviewMock.previewContainer())
 }

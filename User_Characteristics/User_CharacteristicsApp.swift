@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct User_CharacteristicsApp: App {
+    init() {
+        NavigationBarConfigurator.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             CharacteristicListView()
                 .task {
                     ReminderNotificationService.requestPermissionIfNeeded()
                 }
+                .globalTextColor(Color("customTextColor"))
         }
         .modelContainer(PersistenceController.container)
     }
