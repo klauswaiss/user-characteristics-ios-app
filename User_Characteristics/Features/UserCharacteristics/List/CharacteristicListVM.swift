@@ -33,7 +33,7 @@ extension CharacteristicListVM {
         guard let context else { return }
 
         let descriptor = FetchDescriptor<Characteristic>(
-            sortBy: [SortDescriptor(\.lastUpdated, order: .reverse)]
+            sortBy: [SortDescriptor(\.name, comparator: .localizedStandard)]
         )
 
         do {

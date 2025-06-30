@@ -13,11 +13,16 @@ struct CharacteristicRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(item.name).font(.headline)
+            Spacer().frame(height: 4)
             if let value = item.value, !value.isEmpty {
-                Text(displayValue(for: item)).font(.subheadline)
+                HStack {
+                    CheckmarkIcon()
+                    Text(displayValue(for: item)).font(.subheadline)
+                }
             } else {
                 Text("Please enter a value")
                     .font(.subheadline)
+                    .foregroundColor(Color(red: 0.8, green: 0.8, blue: 0.8))
             }
         }
     }
