@@ -19,8 +19,6 @@ struct AddCharacteristicSheet: View {
     @FocusState private var isTextFieldFocused: Bool
     
     var onSave: () async -> Void
-    
-    let types = ["Text", "Number", "Date"]
 
     var body: some View {
         NavigationStack {

@@ -11,17 +11,19 @@ import SwiftData
 final class CharacteristicListVM: ObservableObject {
     @Published var items: [Characteristic] = []
     private var context: ModelContext?
-
+    
     static func empty() -> CharacteristicListVM {
         .init(context: nil)
     }
-
+    
     init(context: ModelContext?) {
         self.context = context
     }
-    
-    // MARK: - Public
+}
 
+// MARK: - Public
+
+extension CharacteristicListVM {
     func setContextIfNeeded(_ ctx: ModelContext) {
         if context == nil { context = ctx }
     }
