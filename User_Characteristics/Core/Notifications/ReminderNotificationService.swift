@@ -16,6 +16,9 @@ enum ReminderNotificationService {
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body
+        content.userInfo = ["characteristicID": id]
+        content.sound = .default
+        
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: true)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)

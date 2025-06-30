@@ -10,7 +10,7 @@ import SwiftData
 
 @Model
 final class Characteristic {
-    @Attribute(.unique) var id: UUID = UUID() // todo think about this
+    @Attribute(.unique) var id: UUID = UUID()
     var name: String
     var value: String?
     var type: CharacteristicType

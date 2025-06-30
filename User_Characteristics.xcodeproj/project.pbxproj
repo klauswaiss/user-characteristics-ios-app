@@ -10,22 +10,9 @@
 		40FC37AB2E0EDED8009EBFF8 /* User_Characteristics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = User_Characteristics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		403567842E11AB0A002E0D2A /* Exceptions for "User_Characteristics" folder in "User_Characteristics" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"User-Characteristics-Info.plist",
-			);
-			target = 40FC37AA2E0EDED8009EBFF8 /* User_Characteristics */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		40FC37AD2E0EDED8009EBFF8 /* User_Characteristics */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				403567842E11AB0A002E0D2A /* Exceptions for "User_Characteristics" folder in "User_Characteristics" target */,
-			);
 			path = User_Characteristics;
 			sourceTree = "<group>";
 		};

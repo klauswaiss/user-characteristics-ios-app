@@ -72,7 +72,6 @@ final class CharacteristicFormVM {
         let wasReminderDisabled = !reminderEnabled
         let target: Characteristic
 
-        // todo how is this working below with the target and context.save?
         if let model {
             model.name = name
             model.value = value
@@ -93,7 +92,7 @@ final class CharacteristicFormVM {
                 id: target.id.uuidString,
                 title: target.name,
                 body: "Please update \(target.name)",
-                interval: 300 // every 5 min
+                interval: 60 // todo should be 300 (5min) but for testing set it to 60sec now
             )
         } else {
             ReminderNotificationService.cancelNotification(id: target.id.uuidString)

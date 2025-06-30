@@ -26,20 +26,18 @@ final class CharacteristicListVM: ObservableObject {
         if context == nil { context = ctx }
     }
 
-    func loadItems() {
+    @MainActor
+    func loadItems() async {
         guard let context else { return }
-        let descriptor = FetchDescriptor<Characteristic>(sortBy: [SortDescriptor(\.lastUpdated, order: .reverse)])
 
-        DispatchQueue.global(qos: .userInitiated).async {
-            let result: [Characteristic]
-            do {
-                result = try context.fetch(descriptor)
-            } catch {
-                result = []
-            }
-            DispatchQueue.main.async {
-                self.items = result
-            }
+        let descriptor = FetchDescriptor<Characteristic>(
+            sortBy: [SortDescriptor(\.lastUpdated, order: .reverse)]
+        )
+
+        do {
+            self.items = try context.fetch(descriptor)
+        } catch {
+            self.items = []
         }
     }
 }

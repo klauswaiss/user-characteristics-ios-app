@@ -19,7 +19,7 @@ struct CharacteristicFormView: View {
     @FocusState private var isValueFocused: Bool
 
     var body: some View {
-        NavigationStack { // todo is this best practice to use this?
+        NavigationStack {
             Form {
                 Text(viewModel.name)
                     .listRowBackground(Color("rowBackgroundColor"))
