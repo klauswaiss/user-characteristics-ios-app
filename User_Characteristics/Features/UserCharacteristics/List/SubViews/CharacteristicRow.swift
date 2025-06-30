@@ -18,7 +18,6 @@ struct CharacteristicRow: View {
             } else {
                 Text("Please enter a value")
                     .font(.subheadline)
-                    .foregroundColor(.white)
             }
         }
     }

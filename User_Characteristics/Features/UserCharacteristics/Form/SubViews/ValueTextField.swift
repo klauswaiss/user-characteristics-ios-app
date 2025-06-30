@@ -19,7 +19,7 @@ struct ValueTextField: View {
                 .autocorrectionDisabled(true)
                 .focused($isFocused)
                 .padding(.trailing, 30)
-                .foregroundColor(.white)
+                .foregroundColor(Color("customTextColor"))
 
             if !text.isEmpty {
                 Button {

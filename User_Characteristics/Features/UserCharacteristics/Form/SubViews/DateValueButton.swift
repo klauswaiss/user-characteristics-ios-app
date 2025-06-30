@@ -18,7 +18,6 @@ struct DateValueButton: View {
                 Spacer()
                 if let date {
                     Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
-                        .foregroundColor(.white)
                 } else {
                     Image(systemName: "calendar")
                         .foregroundColor(.white)

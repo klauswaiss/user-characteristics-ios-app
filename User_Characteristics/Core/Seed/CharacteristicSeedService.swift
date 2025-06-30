@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-enum CharacteristicType: String, Codable {
+enum CharacteristicType: String, Codable, CaseIterable {
     case text
     case number
     case date

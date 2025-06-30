@@ -12,6 +12,8 @@ struct CharacteristicListView: View {
     @Environment(\.modelContext) private var context // SwiftData context
     @StateObject private var viewModel = CharacteristicListVM.empty()
     
+    @State private var showAddCharacteristicSheet = false
+    
     @EnvironmentObject private var coordinator: NavigationCoordinator
     @Environment(\.scenePhase) private var scenePhase
     
@@ -28,6 +30,13 @@ struct CharacteristicListView: View {
             .scrollContentBackground(.hidden)
             .background(Color("customBackgroundColor"))
             .navigationTitle("Characteristics")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { showAddCharacteristicSheet = true }) {
+                        Image(systemName: "plus")
+                    }
+                }
+            }
             .task {
                 viewModel.setContextIfNeeded(context)
                 await CharacteristicSeedService.preloadIfNeeded(context: context)
@@ -41,6 +50,13 @@ struct CharacteristicListView: View {
             }
             .onChange(of: coordinator.selectedCharacteristicID) { _, _ in
                 checkNotificationNavigation()
+            }
+            .sheet(isPresented: $showAddCharacteristicSheet) {
+                AddCharacteristicSheet() {
+                    Task {
+                        await viewModel.loadItems()
+                    }
+                }
             }
         }
     }
