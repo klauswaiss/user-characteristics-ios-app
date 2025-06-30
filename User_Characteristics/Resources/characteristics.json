@@ -10,5 +10,9 @@
   {
     "name": "Driver's License Expiration",
     "type": "date"
+  },
+  {
+    "name": "Eye color",
+    "type": "text"
   }
 ]

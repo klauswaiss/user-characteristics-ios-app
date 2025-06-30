@@ -9,16 +9,24 @@ import SwiftUI
 
 struct CharacteristicRow: View {
     let item: Characteristic
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(item.name).font(.headline)
             if let value = item.value, !value.isEmpty {
                 Text(displayValue(for: item)).font(.subheadline)
+            } else {
+                Text("Please enter a value")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
             }
         }
     }
+}
 
+// MARK: Private
+
+extension CharacteristicRow {
     private func displayValue(for item: Characteristic) -> String {
         guard let value = item.value, !value.isEmpty else { return "" }
 
