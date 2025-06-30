@@ -99,7 +99,7 @@ extension CharacteristicFormVM {
                 id: target.id.uuidString,
                 title: target.name,
                 body: "Please update \(target.name)",
-                interval: 60 // todo should be 300 (5min) but for testing set it to 60sec now
+                interval: 300
             )
         } else {
             ReminderNotificationService.cancelNotification(id: target.id.uuidString)
