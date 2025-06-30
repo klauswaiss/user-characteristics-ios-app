@@ -26,6 +26,7 @@ struct CharacteristicListView: View {
                     }
                 }
                 .listRowBackground(Color("rowBackgroundColor"))
+                .listRowSeparatorTint(Color("listRowDividerColor"))
             }
             .scrollContentBackground(.hidden)
             .background(Color("customBackgroundColor"))

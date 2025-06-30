@@ -23,6 +23,7 @@ struct CharacteristicFormView: View {
             Form {
                 Text(viewModel.name)
                     .listRowBackground(Color("rowBackgroundColor"))
+                    .listRowSeparatorTint(Color("listRowDividerColor"))
                 
                 if viewModel.type == .date {
                     DateValueButton(date: viewModel.dateValue) {
