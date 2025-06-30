@@ -42,10 +42,9 @@ struct CharacteristicFormView: View {
                         } label: {
                             HStack {
                                 Text("Value")
-                                    .foregroundColor(.gray)
                                 Spacer()
                                 Image(systemName: "calendar")
-                                    .foregroundColor(.blue)
+                                    .foregroundColor(.white)
                             }
                         }
                         .listRowBackground(Color("rowBackgroundColor"))
@@ -57,6 +56,7 @@ struct CharacteristicFormView: View {
                             .autocorrectionDisabled(true)
                             .focused($isValueFocused)
                             .padding(.trailing, 30)
+                            .foregroundColor(.white)
 
                         if !viewModel.valueText.isEmpty {
                             Button(action: {
@@ -64,7 +64,7 @@ struct CharacteristicFormView: View {
                                 isValueFocused = true
                             }) {
                                 Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.white)
                             }
                         }
                     }
@@ -88,6 +88,9 @@ struct CharacteristicFormView: View {
                 if let model {
                     viewModel.populate(from: model)
                 }
+                if viewModel.type != .date {
+                    isValueFocused = true
+                }
             }
         }
         .sheet(isPresented: $showDatePickerSheet) {
@@ -110,9 +113,13 @@ struct CharacteristicFormView: View {
     // MARK: - Private
     
     private func handleSave() {
-        dismissKeyboard()
-
         let reminderWasOff = viewModel.save(to: context, editing: model)
+        
+        // return and don't dismiss if error happened in validation
+        guard viewModel.validationError == nil else { return }
+        
+        dismissKeyboard()
+        
         if reminderWasOff {
             showReminderPrompt = true
         } else {

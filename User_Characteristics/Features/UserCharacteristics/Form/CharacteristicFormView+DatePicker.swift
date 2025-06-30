@@ -20,6 +20,7 @@ extension CharacteristicFormView {
             displayedComponents: .date
         )
         .datePickerStyle(.graphical)
-        .presentationDetents([.medium])
+        .padding()
+        .presentationDetents([.medium, .large])
     }
 }
