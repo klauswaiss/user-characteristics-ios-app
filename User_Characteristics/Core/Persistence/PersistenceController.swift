@@ -11,6 +11,6 @@ enum PersistenceController {
     static let container: ModelContainer = {
         let schema = Schema([Characteristic.self])
         let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        return try! ModelContainer(for: schema, configurations: [config])
+        return try! ModelContainer(for: schema, configurations: [config]) // NOTE: Add error handling later
     }()
 }

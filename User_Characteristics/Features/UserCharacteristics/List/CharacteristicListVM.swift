@@ -37,6 +37,8 @@ final class CharacteristicListVM: ObservableObject {
         do {
             self.items = try context.fetch(descriptor)
         } catch {
+            // NOTE: Improve error handling later, consider showing user-friendly error message
+            print("Fetch failed:", error)
             self.items = []
         }
     }

@@ -14,7 +14,7 @@ struct CharacteristicFormView: View {
     var model: Characteristic?
     @State private var viewModel = CharacteristicFormVM()
     @State private var showReminderPrompt = false
-    @State private var showDatePickerSheet = false
+    @State private var showDatePicker = false
     
     @FocusState private var isValueFocused: Bool
     
@@ -25,42 +25,13 @@ struct CharacteristicFormView: View {
                     .listRowBackground(Color("rowBackgroundColor"))
                 
                 if viewModel.type == .date {
-                    Button {
-                        showDatePickerSheet = true
-                    } label: {
-                        HStack {
-                            Text("Value")
-                            Spacer()
-                            if let date = viewModel.dateValue {
-                                Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
-                                    .foregroundColor(.white)
-                            } else {
-                                Image(systemName: "calendar")
-                                    .foregroundColor(.white)
-                            }
-                        }
+                    DateValueButton(date: viewModel.dateValue) {
+                        showDatePicker = true
                     }
-                    .listRowBackground(Color("rowBackgroundColor"))
                 } else {
-                    ZStack(alignment: .trailing) {
-                        TextField("Value", text: $viewModel.valueText)
-                            .keyboardType(viewModel.type == .number ? .decimalPad : .default)
-                            .autocorrectionDisabled(true)
-                            .focused($isValueFocused)
-                            .padding(.trailing, 30)
-                            .foregroundColor(.white)
-                        
-                        if !viewModel.valueText.isEmpty {
-                            Button(action: {
-                                viewModel.value = ""
-                                isValueFocused = true
-                            }) {
-                                Image(systemName: "xmark.circle.fill")
-                                    .foregroundColor(.white)
-                            }
-                        }
-                    }
-                    .listRowBackground(Color("rowBackgroundColor"))
+                    ValueTextField(text: $viewModel.valueText,
+                                   isNumberType: viewModel.type == .number,
+                                   isFocused: $isValueFocused)
                 }
                 if let error = viewModel.validationError {
                     Text(error).foregroundColor(.red)
@@ -80,7 +51,7 @@ struct CharacteristicFormView: View {
         .onAppear {
             handleOnAppear()
         }
-        .sheet(isPresented: $showDatePickerSheet) {
+        .sheet(isPresented: $showDatePicker) {
             datePickerSheet(viewModel: viewModel)
         }
         .alert("Set Reminder?", isPresented: $showReminderPrompt) {
@@ -105,11 +76,11 @@ extension CharacteristicFormView {
         if let model {
             viewModel.populate(from: model)
         }
+        
         if viewModel.type != .date {
             isValueFocused = true
-        }
-        if viewModel.type == .date && viewModel.dateValue == nil {
-            showDatePickerSheet = true
+        } else {
+            showDatePicker = true
         }
     }
     
