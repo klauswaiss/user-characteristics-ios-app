@@ -20,8 +20,10 @@ enum NavigationBarConfigurator {
             .foregroundColor: UIColor(named: "customTextColor") ?? .label
         ]
 
-        // Apply appearance
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        let navBarAppearance = UINavigationBar.appearance()
+        navBarAppearance.standardAppearance = appearance
+        navBarAppearance.scrollEdgeAppearance = appearance
+        navBarAppearance.compactAppearance = appearance
+        navBarAppearance.compactScrollEdgeAppearance = appearance
     }
 }

@@ -15,5 +15,6 @@ struct ContentView: View {
             .sheet(item: $coordinator.selectedItem) { item in
                 CharacteristicFormView(model: item)
             }
+            .accentColor(Color("customTextColor"))
     }
 }

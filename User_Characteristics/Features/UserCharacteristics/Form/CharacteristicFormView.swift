@@ -25,29 +25,24 @@ struct CharacteristicFormView: View {
                     .listRowBackground(Color("rowBackgroundColor"))
 
                 if viewModel.type == .date {
-                    if let _ = viewModel.dateValue {
-                        DatePicker(
-                            "Value",
-                            selection: Binding(
-                                get: { viewModel.dateValue ?? Date() },
-                                set: { viewModel.dateValue = $0 }
-                            ),
-                            in: DateRange.plusMinus125Years,
-                            displayedComponents: .date)
-                        .datePickerStyle(.compact)
-                        .listRowBackground(Color("rowBackgroundColor"))
-                    } else {
-                        Button {
-                            showDatePickerSheet = true
-                        } label: {
-                            HStack {
-                                Text("Value")
-                                Spacer()
+                    Button {
+                        showDatePickerSheet = true
+                    } label: {
+                        HStack {
+                            Text("Value")
+                            Spacer()
+                            if let date = viewModel.dateValue {
+                                Text(DateFormatter.localizedString(from: date, dateStyle: .medium, timeStyle: .none))
+                                    .foregroundColor(.white)
+                            } else {
                                 Image(systemName: "calendar")
                                     .foregroundColor(.white)
                             }
                         }
-                        .listRowBackground(Color("rowBackgroundColor"))
+                    }
+                    .listRowBackground(Color("rowBackgroundColor"))
+                    .onAppear {
+                        showDatePickerSheet = true
                     }
                 } else {
                     ZStack(alignment: .trailing) {
