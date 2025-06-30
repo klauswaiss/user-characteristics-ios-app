@@ -10,20 +10,20 @@ import SwiftUI
 struct CharacteristicFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
-
+    
     var model: Characteristic?
     @State private var viewModel = CharacteristicFormVM()
     @State private var showReminderPrompt = false
     @State private var showDatePickerSheet = false
     
     @FocusState private var isValueFocused: Bool
-
+    
     var body: some View {
         NavigationStack {
             Form {
                 Text(viewModel.name)
                     .listRowBackground(Color("rowBackgroundColor"))
-
+                
                 if viewModel.type == .date {
                     Button {
                         showDatePickerSheet = true
@@ -41,9 +41,6 @@ struct CharacteristicFormView: View {
                         }
                     }
                     .listRowBackground(Color("rowBackgroundColor"))
-                    .onAppear {
-                        showDatePickerSheet = true
-                    }
                 } else {
                     ZStack(alignment: .trailing) {
                         TextField("Value", text: $viewModel.valueText)
@@ -52,7 +49,7 @@ struct CharacteristicFormView: View {
                             .focused($isValueFocused)
                             .padding(.trailing, 30)
                             .foregroundColor(.white)
-
+                        
                         if !viewModel.valueText.isEmpty {
                             Button(action: {
                                 viewModel.value = ""
@@ -71,7 +68,7 @@ struct CharacteristicFormView: View {
             }
             .scrollContentBackground(.hidden)
             .background(Color("customBackgroundColor"))
-            .navigationTitle(model == nil ? "Add Characteristic" : "Edit Characteristic")
+            .navigationTitle("Edit Characteristic")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
@@ -79,14 +76,9 @@ struct CharacteristicFormView: View {
                     }
                 }
             }
-            .onAppear {
-                if let model {
-                    viewModel.populate(from: model)
-                }
-                if viewModel.type != .date {
-                    isValueFocused = true
-                }
-            }
+        }
+        .onAppear {
+            handleOnAppear()
         }
         .sheet(isPresented: $showDatePickerSheet) {
             datePickerSheet(viewModel: viewModel)
@@ -104,8 +96,22 @@ struct CharacteristicFormView: View {
             Text("Would you like to be reminded to update this periodically?")
         }
     }
-    
-    // MARK: - Private
+}
+
+// MARK: - Private
+
+extension CharacteristicFormView {
+    private func handleOnAppear() {
+        if let model {
+            viewModel.populate(from: model)
+        }
+        if viewModel.type != .date {
+            isValueFocused = true
+        }
+        if viewModel.type == .date && viewModel.dateValue == nil {
+            showDatePickerSheet = true
+        }
+    }
     
     private func handleSave() {
         let reminderWasOff = viewModel.save(to: context, editing: model)
